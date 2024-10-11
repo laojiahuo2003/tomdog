@@ -24,6 +24,9 @@ public class SimpleHttpServer implements HttpHandler,AutoCloseable {
         this.host = host;
         // 创建的时候需要用到host和端口号
         this.httpServer = HttpServer.create(new InetSocketAddress(host,port),0,"/",this);
+        // 将路径"/"与当前的SimpleHttpServer实例绑定，这个实例实现了HttpHandler接口
+        this.httpServer.createContext("/", this);  // "/" 表示根路径
+
         this.httpServer.start();
         logger.info("start tomdog http server at" + host + ":" + port);
     }
